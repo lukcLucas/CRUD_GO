@@ -1,25 +1,94 @@
-✅ Visão geral do que vamos fazer:
 
-    Estrutura básica da API Go com GIN + GORM + PostgreSQL
+📘 Exercício: Expansão do CRUD de Livros com Categoria
+🎯 Objetivo
 
-    Modelo Book
+Adicionar ao sistema uma funcionalidade de categorias de livros, incluindo:
 
-    Endpoint POST /books para adicionar livros
+    Novo model: Category
 
-    Testar no Insomnia
+    Associação entre livros e categorias (relacionamento)
 
-📦 Estrutura básica esperada:
+    Novas rotas para CRUD de categorias
 
-go-mvc-api/
-├── main.go
-├── config/
-│   └── database.go
-├── models/
-│   └── book.go
-├── controllers/
-│   └── book_controller.go
-├── routes/
-│   └── routes.go
+    Possibilidade de listar livros por categoria
+
+🧱 1. Criar o Model Category
+
+    Campos:
+
+        ID (uint, chave primária)
+
+        Name (string, obrigatório, único)
+
+        Relacionamento Books com []Book
+
+    📝 Dica: use a tag gorm:"foreignKey:CategoryID" no model Book
+
+🧰 2. Ajustar o Model Book
+
+    Adicionar campo CategoryID (uint)
+
+    Adicionar campo Category com gorm:"foreignKey:CategoryID"
+
+🔧 3. Atualizar o banco de dados
+
+    Fazer AutoMigrate com o novo model
+
+    Se quiser, criar categorias manualmente via psql ou POST /categories
+
+🔁 4. Criar os arquivos MVC para Categoria
+
+    models/category.go
+
+    repositories/category_repository.go
+
+    services/category_service.go
+
+    controllers/category_controller.go
+
+Funções mínimas:
+
+    GetCategories
+
+    GetCategoryByID
+
+    CreateCategory
+
+    UpdateCategory
+
+    DeleteCategory
+
+🌐 5. Atualizar o roteamento
+
+    Adicionar grupo de rotas /categories com os métodos:
+
+        GET /categories
+
+        GET /categories/:id
+
+        POST /categories
+
+        PUT /categories/:id
+
+        DELETE /categories/:id
+
+🔍 6. Endpoint extra (desafio)
+
+Criar endpoint:
+
+GET /categories/:id/books
+
+    Retorna todos os livros pertencentes a uma determinada categoria.
+
+✅ Critérios de Aceitação
+
+    O código deve compilar e rodar sem erros
+
+    As rotas de categoria devem funcionar via Insomnia/Postman
+
+    Ao criar um livro, deve ser possível associá-lo a uma categoria
+
+    Deve ser possível listar livros filtrando por categoria
 
 main.go
 
